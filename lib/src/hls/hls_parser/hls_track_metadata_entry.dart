@@ -1,6 +1,6 @@
 import 'package:better_player/src/hls/hls_parser/variant_info.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/foundation.dart'; // for Object.hash and Object.hashAll
 
 class HlsTrackMetadataEntry {
   HlsTrackMetadataEntry({this.groupId, this.name, this.variantInfos});
@@ -28,5 +28,9 @@ class HlsTrackMetadataEntry {
   }
 
   @override
-  int get hashCode => hashValues(groupId, name, variantInfos);
+  int get hashCode => Object.hash(
+        groupId,
+        name,
+        Object.hashAll(variantInfos ?? const []),
+      );
 }
